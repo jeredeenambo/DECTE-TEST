@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECTE MOCK SPEED TEST - HEALTH AND NUTRITION</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: skyblue;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ffc107;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .ckeditor {
+            margin-top: 10px;
+        }
+
+        .submit-button {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>DECTE MOCK SPEED TEST - HEALTH AND NUTRITION</h1>
+    </div>
+    <div class="timer" id="timer">20:00</div>
+    <div class="container">
+        <div class="question">
+            <p>1. Define the following terms:</p>
+            <p>a) Health</p>
+
+            <p>b) Nutrition</p>
+            <textarea class="ckeditor" name="question1b"></textarea>
+        </div>
+        <div class="question">
+            <p>2. Name four important nutrients a baby needs between the age of 7 and 12.</p>
+            <textarea class="ckeditor" name="question2"></textarea>
+        </div>
+        <div class="question">
+            <p>3. State three food groups and give an example of a nutrient in each group.</p>
+            <textarea class="ckeditor" name="question3"></textarea>
+        </div>
+        <div class="question">
+            <p>4. Identify three symptoms of tuberculosis in a child.</p>
+            <textarea class="ckeditor" name="question4"></textarea>
+        </div>
+        <div class="question">
+            <p>5. Outline four physical conditions that may hinder a mother from breastfeeding.</p>
+            <textarea class="ckeditor" name="question5"></textarea>
+        </div>
+        <div class="question">
+            <p>6. Identify forms of child abuse.</p>
+            <textarea class="ckeditor" name="question6"></textarea>
+        </div>
+        <div class="question">
+            <p>7. Define the following terms as used in health, nutrition, and care (10 marks):</p>
+            <p>a) Feeding programme</p>
+           
+            <p>b) Vitamins</p>
+            
+            <p>c) Family planning</p>
+            
+            <p>d) Body building foods</p>
+           
+            <p>e) Growth monitoring</p>
+            <textarea class="ckeditor" name="question7e"></textarea>
+        </div>
+        <button class="submit-button" onclick="submitExam()">Submit</button>
+    </div>
+
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+    <script>
+        // Initialize CKEditor for each textarea
+        document.querySelectorAll('.ckeditor').forEach(textarea => {
+            CKEDITOR.replace(textarea);
+        });
+
+        // Timer functionality
+        let timeLeft = 20 * 60; // 20 minutes in seconds
+        const timerElement = document.getElementById('timer');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timeLeft--;
+
+            if (timeLeft === 5 * 60) { // 5 minutes remaining
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'TIME IS UP',
+                    text: '5 MINUTES REMAINING YOU SHOULD BE WINDING UP!',
+                });
+            }
+
+            if (timeLeft < 0) {
+                clearInterval(timerInterval);
+                
+                window.location.href = 'ck2.html'; // Redirect to session ended page
+            }
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        function submitExam() {
+            clearInterval(timerInterval); // Stop the timer
+            alert('Your exam has been submitted.');
+            window.location.href = 'ck2.html'; // Redirect to session ended page
+        }
+    </script>
+</body>
+</html>
